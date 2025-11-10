@@ -1,25 +1,26 @@
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
 [project]
 name = "sxpb_example"
 version = "0.0.0"
 authors = [
 ]
 dependencies = [
-    "sxpb @ git+https://github.com/sxpb/sxpb-py@92eb8ffae4d675eede3dc845a8715d25a7ae7d02",
 ]
-requires-python = ">=3.11"
-
-[build-system]
-requires = ["pdm-pep517>=1.0.0"]
-build-backend = "pdm.pep517.api"
+requires-python = ">=3.9"
 
 [tool.pdm.dev-dependencies]
 dev = [
     "pytest",
+    "sxpb @ git+https://github.com/sxproto/sxpb-py.git",
 ]
 
 [tool.pytest.ini_options]
-addopts = "--showlocals"
-pythonpath = ["."]
+addopts = "-v"
+pythonpath = ["test"]
+testpaths = ["test"]
 
 [tool.pdm.scripts]
 test = "pytest"
