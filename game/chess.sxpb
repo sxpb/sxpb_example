@@ -1,0 +1,42 @@
+; --- The 8x8 Chess Board ---
+(board
+ ; Columns: a b c d e f g h
+ (row8 (()) r _ b _ k b n r)
+ (row7 (()) p p _ _ _ p p p)
+ (row6 (()) _ _ _ p p _ _ _)
+ (row5 (()) q _ _ _ _ _ _ _)
+ (row4 (()) _ _ B N P _ _ _)
+ (row3 (()) _ _ _ _ _ _ _ _)
+ (row2 (()) P P _ B _ P P P)
+ (row1 (()) R N _ Q K _ _ R)
+ ; Columns: a b c d e f g h
+)
+
+; --- Game Metadata ---
+(player_to_move BLACK)
+(white_king_side_castle +true)
+(white_queen_side_castle +true)
+(black_king_side_castle +true)
+(black_queen_side_castle +true)
+(en_passant_target_square "")
+(halfmove_clock 15)
+(fullmove_number 3)
+
+; --- Move History (Algebraic Notation) ---
+(moves (())
+ e4
+ c5
+ Bc4
+ Nc6
+ Nf3
+ d6
+ c3
+ e6
+ d4
+ cxd4
+ cxd4
+ Nxd4
+ Nxd4
+ Qa5+
+ Bd2
+)

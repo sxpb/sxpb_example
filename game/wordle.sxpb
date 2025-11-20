@@ -1,0 +1,11 @@
+(board
+ (guess1 (()) I d e A s)
+ (guess2 (()) m I g h T)
+ (guess3 (()) T A t a R)
+ (guess4 (()) p u R I N)
+ (guess5 (()) _ _ _ _ _)
+ (guess6 (()) _ _ _ _ _)
+ ; Letters guessed in correct positions.
+ (pinned (()) T _ _ I N)
+)
+(guess_count 4)

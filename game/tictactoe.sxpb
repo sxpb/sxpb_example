@@ -1,0 +1,21 @@
+; --- Tic-Tac-Toe (3 Columns x 3 Rows) ---
+(board
+ ; Columns: a b c
+ (row3 (()) O _ X)
+ (row2 (()) X X O)
+ (row1 (()) O _ _)
+ ; Columns: a b c
+)
+
+; --- Game Metadata ---
+(player_to_move X)
+(move_count 6)
+; --- Move History ---
+(moves (())
+ Xb2
+ Oa3
+ Xc3
+ Oa1
+ Xa2
+ Oc2
+)
