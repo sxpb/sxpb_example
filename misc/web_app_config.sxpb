@@ -1,0 +1,22 @@
+; Configuration for a web application
+(server
+ (host "0.0.0.0")
+ (port 8080)
+ (debug +true)
+ (timeout_ms 5000)
+)
+(database
+ (driver postgres)
+ (url "postgres://user:password@localhost:5432/myapp")
+ (pool_size 20)
+ (retry_attempts 3)
+)
+(logging
+ (level info)
+ (file "/var/log/myapp.log")
+)
+(features (())
+ auth
+ metrics
+ rate_limiting
+)

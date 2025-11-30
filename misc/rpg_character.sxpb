@@ -1,0 +1,52 @@
+; Character Sheet: Valerius the Brave
+(name "Valerius")
+(class Paladin)
+(level 5)
+(race Human)
+
+(attributes
+ (strength 16)
+ (dexterity 10)
+ (constitution 14)
+ (intelligence 12)
+ (wisdom 13)
+ (charisma 15)
+)
+
+(stats
+ (hp 45)
+ (mp 20)
+ (ac 18)
+)
+
+(equipment (())
+ (()
+  (name "Longsword")
+  (type weapon)
+  (damage "1d8+3")
+  (equipped +true)
+ )
+ (()
+  (name "Shield")
+  (type armor)
+  (ac_bonus 2)
+  (equipped +true)
+ )
+ (()
+  (name "Plate Armor")
+  (type armor)
+  (ac_bonus 8)
+  (equipped +true)
+ )
+ (()
+  (name "Potion of Healing")
+  (quantity 3)
+  (type consumable)
+ )
+)
+
+(spells (())
+ "Lay on Hands"
+ "Divine Smite"
+ "Bless"
+)
