@@ -14,7 +14,7 @@
  (authors (()) "Erich Gamma" "Richard Helm" "Ralph Johnson" "John Vlissides")
  (year 1994)
  (publisher "Addison-Wesley")
- (topics (()) "software engineering" design patterns oop)
+ (topics (()) "software engineering" "design patterns" oop)
 )
 (()
  (title "The Pragmatic Programmer")
