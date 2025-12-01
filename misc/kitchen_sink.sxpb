@@ -1,0 +1,10 @@
+(an_integer 123)
+(a_float 3.14)
+(a_boolean +true)
+(a_null)
+(a_string "hello world")
+(a_list (()) 1 2 3 "four")
+(an_object
+ (key1 "value1")
+ (key2 (()) "a" "b" "c")
+)
