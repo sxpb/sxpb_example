@@ -1,0 +1,31 @@
+; --- Battleship (10x10) ---
+; This represents Player 1's board view.
+; It shows Player 1's ships and Player 2's shots.
+(board
+ ; Legend:
+ ; ~ : Water
+ ; O : Missed shot
+ ; X : Hit on a ship
+ ; C : Carrier (5 cells)
+ ; B : Battleship (4 cells)
+ ; D : Destroyer (3 cells)
+ ; S : Submarine (3 cells)
+ ; P : Patrol Boat (2 cells)
+
+ ; Columns: 1 2 3 4 5 6 7 8 9 10
+ (row (()) ~ ~ ~ ~ ~ ~ ~ ~ ~ ~)
+ (row (()) ~ C C X C C ~ ~ O ~) ; Carrier taken a hit
+ (row (()) ~ ~ ~ ~ ~ ~ ~ ~ ~ ~)
+ (row (()) ~ ~ B B B B ~ ~ ~ ~) ; Battleship intact
+ (row (()) O ~ ~ ~ ~ ~ ~ ~ ~ ~) ; Missed shot
+ (row (()) ~ ~ ~ D ~ ~ S ~ ~ ~)
+ (row (()) ~ ~ ~ D ~ ~ S ~ ~ ~)
+ (row (()) ~ ~ ~ X ~ ~ S ~ ~ ~) ; Destroyer hit
+ (row (()) ~ ~ ~ ~ ~ ~ ~ ~ ~ ~)
+ (row (()) ~ ~ P P ~ ~ ~ ~ ~ ~)
+)
+
+; --- Game Metadata ---
+(player player1)
+(ships_sunk (()) none)
+(opponent_shots_fired 4)
