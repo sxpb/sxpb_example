@@ -14,7 +14,7 @@ requires-python = ">=3.9"
 [tool.pdm.dev-dependencies]
 dev = [
     "pytest",
-    "sxpb @ git+https://github.com/sxproto/sxpb-py.git",
+    "sxpb @ git+https://github.com/sxproto/sxpb-py@4a2ce27ba7863a22ca298b9e32cfa54f2fe6716b",
 ]
 
 [tool.pytest.ini_options]
