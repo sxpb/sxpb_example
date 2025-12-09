@@ -8,6 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const dirsFile = path.join(__dirname, 'dirs.sxpb');
+// Use sxpb.parse directly as verified in debug
 const config = sxpb.parse(fs.readFileSync(dirsFile, 'utf8'));
 const dirsToScan = config.dirs || [];
 
@@ -54,6 +55,8 @@ let failed = false;
 sxpbFiles.forEach(file => {
     try {
         execSync(`${cmdPrefix} --validate_only "${file}"`, { stdio: 'inherit' });
+        // Re-enable logging to confirm operation
+        console.log(`Validated ${file}`);
     } catch (error) {
         console.error(`Validation failed for ${file}`);
         failed = true;
