@@ -1,0 +1,8 @@
+(dirs (())
+ "game"
+ "json"
+ "misc"
+ "svg"
+ "test"
+ "yaml"
+)

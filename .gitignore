@@ -4,3 +4,7 @@
 
 /pdm.lock
 __pycache__/
+node_modules/
+dist/
+package-lock.json
+coverage/
