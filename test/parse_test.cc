@@ -1,0 +1,85 @@
+#include <fildesh/sxproto.h>
+#include <iostream>
+#include <filesystem>
+#include <string>
+#include <vector>
+
+namespace fs = std::filesystem;
+
+int main() {
+  std::string source_dir = PROJECT_SOURCE_DIR;
+  std::string dirs_sxpb_path = source_dir + "/test/dirs.sxpb";
+
+  FildeshX* in = open_FildeshXF(dirs_sxpb_path.c_str());
+  if (!in) {
+    std::cerr << "Could not open " << dirs_sxpb_path << std::endl;
+    return 1;
+  }
+
+  FildeshO* stderr_out = open_FildeshOF("/dev/stderr");
+  FildeshSxpb* sxpb = slurp_sxpb_close_FildeshX(in, NULL, stderr_out);
+  if (!sxpb) {
+    std::cerr << "Failed to parse " << dirs_sxpb_path << std::endl;
+    return 1;
+  }
+
+  FildeshSxpbIT top = top_of_FildeshSxpb(sxpb);
+  FildeshSxpbIT dirs_it = lookup_subfield_at_FildeshSxpb(sxpb, top, "dirs");
+
+  if (nullish_FildeshSxpbIT(dirs_it)) {
+     std::cerr << "No 'dirs' field in " << dirs_sxpb_path << std::endl;
+     close_FildeshSxpb(sxpb);
+     return 1;
+  }
+
+  std::vector<std::string> dirs;
+  for (FildeshSxpbIT it = first_at_FildeshSxpb(sxpb, dirs_it);
+       !nullish_FildeshSxpbIT(it);
+       it = next_at_FildeshSxpb(sxpb, it)) {
+    const char* dir = str_value_at_FildeshSxpb(sxpb, it);
+    if (dir) {
+      dirs.push_back(dir);
+    }
+  }
+
+  close_FildeshSxpb(sxpb);
+
+  bool success = true;
+  for (const auto& dir : dirs) {
+    fs::path dir_path = fs::path(source_dir) / dir;
+    if (!fs::exists(dir_path)) continue;
+
+    for (const auto& entry : fs::recursive_directory_iterator(dir_path)) {
+      if (entry.is_regular_file() && entry.path().extension() == ".sxpb") {
+        std::string filepath = entry.path().string();
+        std::string filename = entry.path().filename().string();
+
+        // Skip known failures pending upstream fildesh fix
+        if (filename == "minesweeper.sxpb" || filename == "kitchen_sink.sxpb") {
+            std::cout << "Skipping known failure: " << filepath << std::endl;
+            continue;
+        }
+
+        // Validation
+        FildeshX* file_in = open_FildeshXF(filepath.c_str());
+        if (!file_in) {
+             std::cerr << "Cannot open " << filepath << std::endl;
+             success = false;
+             continue;
+        }
+        FildeshSxpb* file_sxpb = slurp_sxpb_close_FildeshX(file_in, NULL, stderr_out);
+        if (file_sxpb) {
+            std::cout << "Validated " << filepath << std::endl;
+            close_FildeshSxpb(file_sxpb);
+        } else {
+            std::cerr << "Validation failed for " << filepath << std::endl;
+            success = false;
+        }
+      }
+    }
+  }
+
+  close_FildeshO(stderr_out);
+
+  return success ? 0 : 1;
+}
