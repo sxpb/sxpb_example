@@ -1,0 +1,12 @@
+{
+  "name": "@sxproto/sxpb-example",
+  "version": "0.0.0",
+  "description": "Tests for sxpb examples",
+  "type": "module",
+  "dependencies": {
+    "@sxproto/sxpb": "github:sxproto/sxpb-js"
+  },
+  "scripts": {
+    "test": "node test/parse_test.js"
+  }
+}
