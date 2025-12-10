@@ -2,5 +2,11 @@
 !/.gitignore
 !/.github/
 
+/bld/
+/build/
+/coverage/
+/node_modules/
+/package-lock.json
 /pdm.lock
+
 __pycache__/

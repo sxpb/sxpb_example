@@ -1,0 +1,15 @@
+name: Test C++
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+    - name: Configure CMake
+      run: cmake -S . -B bld
+    - name: Build
+      run: cmake --build bld
+    - name: Test
+      run: ctest --test-dir bld --output-on-failure
