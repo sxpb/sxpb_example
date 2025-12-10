@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import { execSync } from 'child_process';
 import SxPB from "@sxproto/sxpb";
 import { fileURLToPath } from 'url';
 
@@ -41,23 +40,31 @@ if (sxpbFiles.length === 0) {
   process.exit(1);
 }
 
-// Check for sxpb2sxpb availability
-let cmdPrefix = 'sxpb2sxpb';
-try {
-  execSync('which sxpb2sxpb');
-} catch (e) {
-  cmdPrefix = 'pdm run sxpb2sxpb';
-}
-
 let failed = false;
 
 sxpbFiles.forEach(file => {
   try {
-    execSync(`${cmdPrefix} --validate_only "${file}"`, { stdio: 'inherit' });
-    // Re-enable logging to confirm operation
+    // 1. Read the file via the library, using precise=true
+    const content = fs.readFileSync(file, 'utf8');
+    const obj1 = SxPB.parse(content, {precise: true});
+
+    // 2. Write the sxpb to a string
+    const s1 = SxPB.stringify(obj1);
+
+    // 3. Parse sxpb from the string, using precise=true
+    const obj2 = SxPB.parse(s1, {precise: true});
+
+    // 4. Write the sxpb to another string
+    const s2 = SxPB.stringify(obj2);
+
+    // 5. Compare the 2 written strings
+    if (s1 !== s2) {
+      throw new Error(`Idempotency check failed. Expected length ${s1.length}, got ${s2.length}`);
+    }
+
     console.log(`Validated ${file}`);
   } catch (error) {
-    console.error(`Validation failed for ${file}`);
+    console.error(`Validation failed for ${file}:`, error);
     failed = true;
   }
 });

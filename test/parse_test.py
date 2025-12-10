@@ -1,5 +1,4 @@
 import os
-import subprocess
 import unittest
 import sxpb
 
@@ -26,12 +25,24 @@ class TestSxpbFiles(unittest.TestCase):
 
         for sxpb_file in sxpb_files:
             with self.subTest(sxpb_file=sxpb_file):
-                result = subprocess.run(
-                    ['sxpb2sxpb', '--validate_only', sxpb_file],
-                    capture_output=True,
-                    text=True
-                )
-                self.assertEqual(result.returncode, 0, f"Validation failed for {sxpb_file}:\n{result.stderr}")
+                try:
+                    # 1. Read the file via the library, using precise=True
+                    obj1 = sxpb.load(sxpb_file, precise=True)
+
+                    # 2. Write the sxpb to a string
+                    s1 = sxpb.dumps(obj1)
+
+                    # 3. Parse sxpb from the string, using precise=True
+                    obj2 = sxpb.loads(s1, precise=True)
+
+                    # 4. Write the sxpb to another string
+                    s2 = sxpb.dumps(obj2)
+
+                    # 5. Compare the 2 written strings
+                    self.assertEqual(s1, s2, f"Idempotency check failed for {sxpb_file}")
+
+                except Exception as e:
+                    self.fail(f"Failed to process {sxpb_file}: {e}")
 
 if __name__ == '__main__':
     unittest.main()
