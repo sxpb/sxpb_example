@@ -18,7 +18,6 @@ include_directories(${Fildesh_INCLUDE_DIRS})
 
 add_executable(parse_test test/parse_test.cc)
 target_link_libraries(parse_test PRIVATE ${FildeshSxproto_LIBRARIES})
-target_compile_definitions(parse_test PRIVATE "PROJECT_SOURCE_DIR=\"${CMAKE_SOURCE_DIR}\"")
 
 enable_testing()
-add_test(NAME parse_test COMMAND parse_test)
+add_test(NAME parse_test COMMAND parse_test "${CMAKE_SOURCE_DIR}")

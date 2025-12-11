@@ -5,8 +5,12 @@
 
 #include <fildesh/sxproto.h>
 
-int main() {
-  std::string source_dir = PROJECT_SOURCE_DIR;
+int main(int argc, char** argv) {
+  if (argc < 2) {
+    std::cerr << "Usage: " << argv[0] << " <source_dir>" << std::endl;
+    return 1;
+  }
+  std::string source_dir = argv[1];
   std::string dirs_sxpb_path = source_dir + "/test/dirs.sxpb";
 
   FildeshX* in = open_FildeshXF(dirs_sxpb_path.c_str());
