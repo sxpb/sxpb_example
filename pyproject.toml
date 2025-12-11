@@ -11,7 +11,7 @@ dependencies = [
 ]
 requires-python = ">=3.9"
 
-[tool.pdm.dev-dependencies]
+[dependency-groups]
 dev = [
     "pytest",
     "sxpb @ git+https://github.com/sxproto/sxpb-py.git",

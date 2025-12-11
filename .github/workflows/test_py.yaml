@@ -1,0 +1,12 @@
+name: Test Python
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+    - uses: pdm-project/setup-pdm@v4
+    - run: pdm install
+    - run: pdm test
